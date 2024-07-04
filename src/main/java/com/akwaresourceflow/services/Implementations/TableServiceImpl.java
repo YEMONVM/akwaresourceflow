@@ -3,6 +3,7 @@ package com.akwaresourceflow.services.Implementations;
 import com.akwaresourceflow.models.DiningTable;
 import com.akwaresourceflow.repositories.DiningTableRepo;
 import com.akwaresourceflow.services.Interfaces.TableService;
+import lombok.extern.slf4j.Slf4j;
 import org.codehaus.plexus.resource.loader.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 @Service
+@Slf4j
 public class TableServiceImpl implements TableService {
 
     @Autowired

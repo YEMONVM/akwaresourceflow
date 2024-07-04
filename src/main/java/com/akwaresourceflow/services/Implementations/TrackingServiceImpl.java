@@ -3,6 +3,7 @@ package com.akwaresourceflow.services.Implementations;
 import com.akwaresourceflow.models.Tracking;
 import com.akwaresourceflow.repositories.TrackingRepo;
 import com.akwaresourceflow.services.Interfaces.TrackingService;
+import lombok.extern.slf4j.Slf4j;
 import org.codehaus.plexus.resource.loader.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class TrackingServiceImpl implements TrackingService {
 
     @Autowired

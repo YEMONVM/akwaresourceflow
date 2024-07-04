@@ -18,7 +18,9 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Date orderdate;
     private double totalamount;
+
+    public void setOrder(OrderItem orderItem) {
+    }
 }

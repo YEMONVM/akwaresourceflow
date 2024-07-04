@@ -3,6 +3,7 @@ package com.akwaresourceflow.services.Implementations;
 import com.akwaresourceflow.models.Restaurant;
 import com.akwaresourceflow.repositories.RestaurantRepo;
 import com.akwaresourceflow.services.Interfaces.RestaurantService;
+import lombok.extern.slf4j.Slf4j;
 import org.codehaus.plexus.resource.loader.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 @Service
+@Slf4j
 public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
