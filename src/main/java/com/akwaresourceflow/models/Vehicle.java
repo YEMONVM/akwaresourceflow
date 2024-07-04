@@ -7,8 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
-import javax.xml.stream.Location;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,5 +19,7 @@ public class Vehicle {
     private Long id;
 
     private VehicleType type;
-    private String currentlocation;
+    private String currentLocation;
+    private int capacity;
+    private String status; // Available, In Transit, Under Maintenance, etc.
 }

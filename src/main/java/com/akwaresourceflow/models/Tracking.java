@@ -17,5 +17,8 @@ public class Tracking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String locationdata;
+    private Long vehicleId;
+    private String locationData;
+    private String timestamp;
+    private double speed;
 }
