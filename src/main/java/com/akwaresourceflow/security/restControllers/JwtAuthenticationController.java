@@ -1,7 +1,7 @@
 package com.akwaresourceflow.security.restControllers;
 
-import com.akwaresourceflow.services.Interfaces.UserService;
-import com.akwaresourceflow.models.User;
+import com.akwaresourceflow.services.Interfaces.AppUserService;
+import com.akwaresourceflow.models.AppUser;
 import com.akwaresourceflow.security.jwt.configs.JwtTokenUtil;
 import com.akwaresourceflow.security.jwt.models.JwtRequest;
 import com.akwaresourceflow.security.jwt.models.JwtResponse;
@@ -24,14 +24,14 @@ public class JwtAuthenticationController {
     private AuthenticationManager authenticationManager;
     private JwtTokenUtil jwtTokenUtil;
     private JwtUserDetailsService userDetailsService;
-    private UserService userService;
+    private AppUserService appUserService;
 
     public JwtAuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,
-                                       JwtUserDetailsService userDetailsService, UserService userService) {
+                                       JwtUserDetailsService userDetailsService, AppUserService appUserService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
-        this.userService = userService;
+        this.appUserService = appUserService;
     }
 
 
@@ -45,10 +45,10 @@ public class JwtAuthenticationController {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(USERNAME);
 
-        User user = userService.getUser(USERNAME);
+        AppUser appUser = appUserService.getAppUser(USERNAME);
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername(), user));
+        return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername(), appUser));
     }
 
 

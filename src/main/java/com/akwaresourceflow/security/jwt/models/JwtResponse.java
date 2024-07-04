@@ -1,18 +1,18 @@
 package com.akwaresourceflow.security.jwt.models;
 
-import com.akwaresourceflow.models.User;
+import com.akwaresourceflow.models.AppUser;
 import java.io.Serializable;
 
 public class JwtResponse implements Serializable {
 
     private final String jwttoken;
     private String id;
-    private User user;
+    private AppUser appUser;
 
-    public JwtResponse(String jwttoken, String id, User user) {
+    public JwtResponse(String jwttoken, String id, AppUser appUser) {
         this.jwttoken = jwttoken;
         this.id = id;
-        this.user = user;
+        this.appUser = appUser;
     }
 
     public String getJwttoken() {
@@ -27,11 +27,11 @@ public class JwtResponse implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public AppUser getUser() {
+        return appUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 }

@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User implements Serializable {
+public class AppUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,7 +32,7 @@ public class User implements Serializable {
 
     private String firstname;
 
-    public User(String username, Role role, String password, String lastname, String firstname) {
+    public AppUser(String username, Role role, String password, String lastname, String firstname) {
         this.username = username;
         this.password = password;
         this.lastname = lastname;

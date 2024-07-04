@@ -13,7 +13,7 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-public class Table {
+public class DiningTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
