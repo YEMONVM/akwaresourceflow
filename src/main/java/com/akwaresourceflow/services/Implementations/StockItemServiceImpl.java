@@ -24,6 +24,16 @@ public class StockItemServiceImpl implements StockItemService {
     }
 
     @Override
+    public List<StockItem> getByName(String name) {
+        return stockItemRepo.findByName(name);
+    }
+
+    @Override
+    public List<StockItem> getByCategory(String category) {
+        return stockItemRepo.findByCategory(category);
+    }
+
+    @Override
     public void deleteStockItem(Long idStockItem) {
         Optional<StockItem> stockItemOptional = stockItemRepo.findById(idStockItem);
         if (stockItemOptional.isPresent()) {

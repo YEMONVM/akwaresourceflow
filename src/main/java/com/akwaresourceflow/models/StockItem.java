@@ -20,4 +20,5 @@ public class StockItem {
     private String name;
     private int quantity;
     private int threshold;
+    private String category;
 }
