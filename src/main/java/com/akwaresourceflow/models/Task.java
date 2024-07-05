@@ -19,4 +19,8 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
 }
