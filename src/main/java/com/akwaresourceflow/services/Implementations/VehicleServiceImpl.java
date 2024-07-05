@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -53,5 +54,10 @@ public class VehicleServiceImpl implements VehicleService {
             vehicle.setStatus(status);
             return vehicleRepo.save(vehicle);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehicle not found with id " + id));
+    }
+
+    @Override
+    public Optional<Vehicle> getVehicleById(Long id) {
+        return vehicleRepo.findById(id);
     }
 }
