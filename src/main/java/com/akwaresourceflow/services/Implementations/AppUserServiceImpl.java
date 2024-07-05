@@ -1,5 +1,6 @@
 package com.akwaresourceflow.services.Implementations;
 
+import com.akwaresourceflow.enums.Role;
 import com.akwaresourceflow.models.AppUser;
 import com.akwaresourceflow.repositories.AppUserRepo;
 import com.akwaresourceflow.services.Interfaces.AppUserService;
@@ -90,5 +91,15 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public int totalNumberAppUsers() {
         return appUserRepo.findAll().size();
+    }
+
+    @Override
+    public List<AppUser> getAppUsersByRole(Role role) {
+        return appUserRepo.findByRole(role);
+    }
+
+    @Override
+    public boolean userExists(String username) {
+        return appUserRepo.findByUsername(username) != null;
     }
 }

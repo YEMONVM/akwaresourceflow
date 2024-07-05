@@ -41,7 +41,7 @@ public class AppUser implements Serializable {
     }
 
     public String getLogin() {
-        return "h";
+        return this.username;
     }
 }
 
