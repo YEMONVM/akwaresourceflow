@@ -10,4 +10,8 @@ public interface StockItemService {
     List<StockItem> getByCategory(String category);
     void deleteStockItem(Long idStockItem);
     void updateStockItem(Long idStockItem,StockItem stockItem);
+
+    StockItem getStockItem(Long id);
+
+    StockItem saveStockItem(StockItem stockItem);
 }

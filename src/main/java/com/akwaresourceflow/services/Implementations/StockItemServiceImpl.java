@@ -59,4 +59,15 @@ public class StockItemServiceImpl implements StockItemService {
         }
 
     }
+
+    @Override
+    public StockItem getStockItem(Long id) {
+        return stockItemRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("StockItem not found with id: " + id));
+    }
+
+    @Override
+    public StockItem saveStockItem(StockItem stockItem) {
+        return stockItemRepo.save(stockItem);
+    }
 }
