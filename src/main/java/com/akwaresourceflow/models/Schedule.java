@@ -20,6 +20,6 @@ public class Schedule {
     private Date startdate;
     private Date enddate;
 
-    @OneToMany
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
 }
