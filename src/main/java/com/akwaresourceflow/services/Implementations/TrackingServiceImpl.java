@@ -1,7 +1,9 @@
 package com.akwaresourceflow.services.Implementations;
 
 import com.akwaresourceflow.models.Tracking;
+import com.akwaresourceflow.models.Vehicle;
 import com.akwaresourceflow.repositories.TrackingRepo;
+import com.akwaresourceflow.repositories.VehicleRepo;
 import com.akwaresourceflow.services.Interfaces.TrackingService;
 import lombok.extern.slf4j.Slf4j;
 import org.codehaus.plexus.resource.loader.ResourceNotFoundException;
@@ -17,6 +19,24 @@ public class TrackingServiceImpl implements TrackingService {
 
     @Autowired
     private TrackingRepo trackingRepo;
+
+    @Autowired
+    private VehicleRepo vehicleRepo;
+
+    // Update vehicle location
+    public void updateVehicleLocation(Long vehicleId, double latitude, double longitude) {
+        Optional<Vehicle> optionalVehicle = vehicleRepo.findById(vehicleId);
+        if (optionalVehicle.isPresent()) {
+            Vehicle vehicle = optionalVehicle.get();
+            vehicle.setLatitude(latitude);
+            vehicle.setLongitude(longitude);
+            vehicleRepo.save(vehicle);
+        }
+    }
+
+    public Vehicle getVehicleLocation(Long vehicleId) {
+        return vehicleRepo.findById(vehicleId).orElse(null);
+    }
 
     @Override
     public List<Tracking> getAllTrackings() {

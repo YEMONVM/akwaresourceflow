@@ -19,6 +19,8 @@ public class Tracking {
 
     private Long vehicleId;
     private String locationData;
+    private double longitude;
+    private double latitude;
     private String timestamp;
     private double speed;
 }

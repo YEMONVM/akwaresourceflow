@@ -6,12 +6,15 @@ import com.akwaresourceflow.security.jwt.configs.JwtTokenUtil;
 import com.akwaresourceflow.security.jwt.models.JwtRequest;
 import com.akwaresourceflow.security.jwt.models.JwtResponse;
 import com.akwaresourceflow.security.services.JwtUserDetailsService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,10 +62,17 @@ public class JwtAuthenticationController {
 
      }
      */
-    /* @PostMapping(value = "/auth/signup")
-    public ResponseEntity<?> saveAppointment(@RequestBody Appointment appointment) throws Exception {
-        return ResponseEntity.ok(appointmentService.save(appointment));
-    } */
+
+     /*@PostMapping(value = "/auth/signup")
+    public ResponseEntity<?> saveAppUser(@RequestBody AppUser appUser) throws Exception {
+        return ResponseEntity.ok(appUserService.saveAppUser(appUser));
+    }*/
+
+    @PostMapping(value = "/auth/signup")
+    public ResponseEntity<?> saveUser(@RequestBody AppUser appUser) throws Exception {
+        new BCryptPasswordEncoder().encode(appUser.getPassword());
+        return ResponseEntity.ok(appUserService.saveAppUser(appUser));
+    }
 
     private void authenticate(String username, String password) throws Exception {
         try {

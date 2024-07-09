@@ -21,5 +21,8 @@ public class Vehicle {
     private VehicleType type;
     private String currentLocation;
     private int capacity;
+    private String destination;
+    private double latitude;
+    private double longitude;
     private String status; // Available, In Transit, Under Maintenance, etc.
 }

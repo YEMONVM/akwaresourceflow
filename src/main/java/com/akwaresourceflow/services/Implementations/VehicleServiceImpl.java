@@ -43,6 +43,8 @@ public class VehicleServiceImpl implements VehicleService {
             vehicle.setType(vehicleDetails.getType());
             vehicle.setCurrentLocation(vehicleDetails.getCurrentLocation());
             vehicle.setCapacity(vehicleDetails.getCapacity());
+            vehicle.setLatitude(vehicleDetails.getLatitude());
+            vehicle.setLongitude(vehicleDetails.getLongitude());
             vehicle.setStatus(vehicleDetails.getStatus());
             return vehicleRepo.save(vehicle);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehicle not found with id " + id));
