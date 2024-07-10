@@ -1,13 +1,11 @@
 package com.akwaresourceflow.models;
 
 import com.akwaresourceflow.enums.TrafficFlow;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -25,4 +23,16 @@ public class DeliveryRoute {
     private LocalTime timestamp;
     private double fuelconsumption;
     private TrafficFlow trafficflow;
+
+    @ManyToMany(mappedBy = "deliveryRoutes")
+    private Set<Vehicle> vehicles;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "delivery_route_stock_item",
+            joinColumns = @JoinColumn(name = "delivery_route_id"),
+            inverseJoinColumns = @JoinColumn(name = "stock_item_id")
+    )
+    private Set<StockItem> stockItems;
+
 }

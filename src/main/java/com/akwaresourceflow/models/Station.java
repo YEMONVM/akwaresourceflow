@@ -1,10 +1,10 @@
 package com.akwaresourceflow.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,9 +16,15 @@ public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String address;
     private String city;
     private String phonenumber;
+
+
+    @OneToMany(mappedBy = "station", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<StockItem> stockItems;
+
+    @OneToMany(mappedBy = "station", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> employees;
 }

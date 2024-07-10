@@ -21,4 +21,8 @@ public class Employee {
 
     @OneToMany
     private List<Schedule> schedules;
+
+    @ManyToOne
+    @JoinColumn(name = "station_id")
+    private Station station;
 }

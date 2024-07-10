@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +21,11 @@ public class Schedule {
     private Date startdate;
     private Date enddate;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> tasks;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "schedule_task",
+            joinColumns = @JoinColumn(name = "schedule_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id")
+    )
+    private Set<Task> tasks;
 }

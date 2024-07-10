@@ -1,10 +1,9 @@
 package com.akwaresourceflow.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -19,4 +18,7 @@ public class Restaurant {
 
     private String name;
     private String phonenumber;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RestaurantTable> restaurantTables;
 }

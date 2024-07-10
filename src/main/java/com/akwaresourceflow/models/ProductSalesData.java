@@ -20,7 +20,6 @@ public class ProductSalesData {
     private int totalQuantity;
 
 
-
     public ProductSalesData(String key, Integer value) {
     }
 }

@@ -1,10 +1,9 @@
 package com.akwaresourceflow.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +20,11 @@ public class StockItem {
     private int quantity;
     private int threshold;
     private String category;
+
+    @ManyToMany(mappedBy = "stockItems")
+    private Set<DeliveryRoute> deliveryRoutes;
+
+    @ManyToOne
+    @JoinColumn(name = "station_id")
+    private Station station;
 }

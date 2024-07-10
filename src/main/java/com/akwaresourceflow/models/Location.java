@@ -1,12 +1,10 @@
 package com.akwaresourceflow.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,4 +20,7 @@ public class Location {
     private String longitude;
     private String latitude;
     private LocalTime timestamp;
+
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Tracking> trackings;
 }
