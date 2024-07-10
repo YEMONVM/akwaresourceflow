@@ -74,6 +74,15 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public List<Bill> getBillsBetweenDates(Date startDate, Date endDate) {
+        return billRepo.findBillsBetweenDates(startDate, endDate);
+    }
+    @Override
+    public Double getTotalRevenueBetweenDates(Date startDate, Date endDate) {
+        return billRepo.findTotalRevenueBetweenDates(startDate, endDate);
+    }
+
+    @Override
     public List<Bill> getAllBills() {
         return billRepo.findAll();
     }

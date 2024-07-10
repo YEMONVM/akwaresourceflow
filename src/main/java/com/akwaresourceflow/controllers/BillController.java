@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -48,5 +49,13 @@ public class BillController {
     public ResponseEntity<List<Bill>> getAllBills() {
         List<Bill> bills = billService.getAllBills();
         return ResponseEntity.ok(bills);
+    }
+    @GetMapping("/between-dates")
+    public List<Bill> getBillsBetweenDates(@RequestParam("startDate") Date startDate, @RequestParam("endDate") Date endDate) {
+        return billService.getBillsBetweenDates(startDate, endDate);
+    }
+    @GetMapping("/total-revenue")
+    public Double getTotalRevenueBetweenDates(@RequestParam("startDate") Date startDate, @RequestParam("endDate") Date endDate) {
+        return billService.getTotalRevenueBetweenDates(startDate, endDate);
     }
 }

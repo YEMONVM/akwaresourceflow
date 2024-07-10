@@ -32,6 +32,8 @@ public class SalesAnalysisServiceImpl {
         return orderItemRepo.findTopSellingProducts();
     }
 
+
+
     /*public List<ProductSalesData> getTopSellingProducts() {
         List<OrderItem> orderItems = orderItemRepo.findAll();
 

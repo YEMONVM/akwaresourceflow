@@ -3,6 +3,7 @@ package com.akwaresourceflow.services.Interfaces;
 import com.akwaresourceflow.models.Bill;
 import com.akwaresourceflow.models.BillOrderItem;
 
+import java.util.Date;
 import java.util.List;
 
 public interface BillService {
@@ -12,4 +13,7 @@ public interface BillService {
     void deleteBill(Long billId);
     List<Bill> getAllBills();
     double calculateTotal(List<BillOrderItem> billOrderItems);
+
+    List<Bill> getBillsBetweenDates(Date startDate, Date endDate);
+    Double getTotalRevenueBetweenDates(Date startDate, Date endDate);
 }
