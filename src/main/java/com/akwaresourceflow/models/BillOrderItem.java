@@ -9,12 +9,18 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-public class OrderItem {
+public class BillOrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String productName;
     private int quantity;
     private double price;
+
+    @ManyToOne
+    @JoinColumn(name = "order_item_id")
+    private OrderItem orderItem;
+
+    @ManyToOne
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
 }

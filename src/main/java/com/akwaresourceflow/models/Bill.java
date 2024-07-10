@@ -16,12 +16,13 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date orderdate;
-    private double totalamount;
+    private Date orderDate;
+    private double totalAmount;
 
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems;
+    private List<BillOrderItem> billOrderItems;
 
-    public void setOrder(OrderItem orderItem) {
-    }
+    @ManyToOne
+    @JoinColumn(name = "restaurant_table_id")
+    private RestaurantTable restaurantTable;
 }

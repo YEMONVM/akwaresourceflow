@@ -1,8 +1,10 @@
 package com.akwaresourceflow.services.Implementations;
 
 import com.akwaresourceflow.models.Bill;
-import com.akwaresourceflow.models.OrderItem;
+import com.akwaresourceflow.models.BillOrderItem;
 import com.akwaresourceflow.repositories.BillRepo;
+import com.akwaresourceflow.repositories.BillOrderItemRepo;
+import com.akwaresourceflow.repositories.RestaurantTableRepo;
 import com.akwaresourceflow.services.Interfaces.BillService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +20,25 @@ public class BillServiceImpl implements BillService {
     @Autowired
     private final BillRepo billRepo;
 
-    public BillServiceImpl(BillRepo billRepo) {
+    @Autowired
+    private final BillOrderItemRepo billOrderItemRepo;
+
+    @Autowired
+    private final RestaurantTableRepo restaurantTableRepo;
+
+    public BillServiceImpl(BillRepo billRepo, BillOrderItemRepo billOrderItemRepo, RestaurantTableRepo restaurantTableRepo) {
         this.billRepo = billRepo;
+        this.billOrderItemRepo = billOrderItemRepo;
+        this.restaurantTableRepo = restaurantTableRepo;
     }
 
     @Override
-    public Bill createBill(OrderItem orderItem) {
+    public Bill createBill(List<BillOrderItem> billOrderItems, Long diningTableId) {
         Bill bill = new Bill();
-        bill.setOrder(orderItem);
-        bill.setOrderdate(new Date());
-        bill.setTotalamount(calculateTotal(bill));
+        bill.setOrderDate(new Date());
+        bill.setBillOrderItems(billOrderItems);
+        bill.setRestaurantTable(restaurantTableRepo.findById(diningTableId).orElseThrow(() -> new RuntimeException("Dining table not found")));
+        bill.setTotalAmount(calculateTotal(billOrderItems));
         return billRepo.save(bill);
     }
 
@@ -38,13 +49,15 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public void updateBill(Long billId, Bill bill) {
+    public Bill updateBill(Long billId, Bill bill) {
         Optional<Bill> billOptional = billRepo.findById(billId);
         if (billOptional.isPresent()) {
             Bill existingBill = billOptional.get();
-            existingBill.setOrderdate(bill.getOrderdate());
-            existingBill.setTotalamount(calculateTotal(bill));
-            billRepo.save(existingBill);
+            existingBill.setOrderDate(bill.getOrderDate());
+            existingBill.setBillOrderItems(bill.getBillOrderItems());
+            existingBill.setRestaurantTable(bill.getRestaurantTable());
+            existingBill.setTotalAmount(calculateTotal(bill.getBillOrderItems()));
+            return billRepo.save(existingBill);
         } else {
             throw new RuntimeException("Bill not found with id: " + billId);
         }
@@ -66,7 +79,9 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public double calculateTotal(Bill bill) {
-        return 0;
+    public double calculateTotal(List<BillOrderItem> billOrderItems) {
+        return billOrderItems.stream()
+                .mapToDouble(item -> item.getOrderItem().getPrice() * item.getQuantity())
+                .sum();
     }
 }

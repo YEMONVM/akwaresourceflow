@@ -9,10 +9,5 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface BillRepo extends JpaRepository<Bill,Long> {
-    @Query("SELECT b FROM Bill b WHERE b.orderdate BETWEEN :startDate AND :endDate")
-    List<Bill> findBillsBetweenDates(Date startDate, Date endDate);
-
-    @Query("SELECT SUM(b.totalamount) FROM Bill b WHERE b.orderdate BETWEEN :startDate AND :endDate")
-    Double findTotalRevenueBetweenDates(Date startDate, Date endDate);
+public interface BillRepo extends JpaRepository<Bill, Long> {
 }

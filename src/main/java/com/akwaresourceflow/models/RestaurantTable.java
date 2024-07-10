@@ -5,7 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.*;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -13,13 +16,15 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-
-public class DiningTable {
+public class RestaurantTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int tablenumber;
+    private int tableNumber;
     private int capacity;
     private TableStatus status;
+
+    @OneToMany(mappedBy = "restaurantTable")
+    private List<Bill> bills;
 }
