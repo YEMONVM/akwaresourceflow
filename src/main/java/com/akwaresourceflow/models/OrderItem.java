@@ -1,9 +1,6 @@
 package com.akwaresourceflow.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -20,4 +17,8 @@ public class OrderItem {
     private String productname;
     private int quantity;
     private double price;
+
+    @ManyToOne
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
 }
