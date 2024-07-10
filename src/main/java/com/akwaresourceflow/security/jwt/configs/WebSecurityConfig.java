@@ -37,7 +37,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/signin", "/auth/signup", "/akwaresourceflow/**").permitAll()
+                        .requestMatchers("/auth/login", "/auth/signup", "/akwaresourceflow/**", "/api/**", "/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception
