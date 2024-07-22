@@ -1,5 +1,6 @@
 package com.akwaresourceflow.services.Implementations;
 
+import com.akwaresourceflow.models.AppUser;
 import com.akwaresourceflow.models.Restaurant;
 import com.akwaresourceflow.repositories.RestaurantRepo;
 import com.akwaresourceflow.services.Interfaces.RestaurantService;
@@ -8,6 +9,7 @@ import org.codehaus.plexus.resource.loader.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -16,6 +18,20 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     private RestaurantRepo restaurantRepo;
+
+
+    @Override
+    public List<Restaurant> getAllRestaurants() {
+        List<Restaurant> listRestaurants =restaurantRepo.findAll();
+        if (!listRestaurants.isEmpty()){
+            log.info("Restaurants list retrieved!");
+            return listRestaurants;
+        }
+        else {
+            log.warn("No restaurants found!");
+        }
+        return Collections.emptyList();
+    }
 
     @Override
     public Restaurant updateRestaurant(Long id, Restaurant restaurantDetails) throws ResourceNotFoundException {

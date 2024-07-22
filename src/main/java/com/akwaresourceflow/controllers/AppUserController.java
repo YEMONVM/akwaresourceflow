@@ -17,7 +17,6 @@ public class AppUserController {
     @Autowired
     private AppUserService appUserService;
 
-    @Secured("ROLE_ADMIN")
     @GetMapping
     public ResponseEntity<List<AppUser>> getAllAppUsers() {
         List<AppUser> appUsers = appUserService.getAllAppUsers();
@@ -31,7 +30,6 @@ public class AppUserController {
         return ResponseEntity.ok(appUser);
     }
 
-    @Secured("ROLE_ADMIN")
     @PostMapping
     public ResponseEntity<AppUser> createAppUser(@RequestBody AppUser appUser) {
         AppUser createdAppUser = appUserService.saveAppUser(appUser);

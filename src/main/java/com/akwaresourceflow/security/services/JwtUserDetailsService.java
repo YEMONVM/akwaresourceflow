@@ -30,8 +30,10 @@ public class JwtUserDetailsService implements UserDetailsService {
         if (appUser == null) {
             throw new UsernameNotFoundException("Admin not found with username: " + username);
         }
+
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(String.valueOf(appUser.getRole())));
+
         return new org.springframework.security.core.userdetails.User(appUser.getLogin(), appUser.getPassword(),
                 authorities);
     }

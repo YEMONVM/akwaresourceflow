@@ -1,5 +1,6 @@
 package com.akwaresourceflow.controllers;
 
+import com.akwaresourceflow.enums.VehicleStatus;
 import com.akwaresourceflow.models.Vehicle;
 import com.akwaresourceflow.services.Interfaces.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class VehicleController {
     }
 
     @PutMapping("/{id}/status")
-    public Vehicle updateVehicleStatus(@PathVariable Long id, @RequestBody String status) {
+    public Vehicle updateVehicleStatus(@PathVariable Long id, @RequestBody VehicleStatus status) {
         return vehicleService.updateVehicleStatus(id, status);
     }
 

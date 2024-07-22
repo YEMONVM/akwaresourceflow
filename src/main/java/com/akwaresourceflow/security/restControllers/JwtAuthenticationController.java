@@ -28,17 +28,19 @@ public class JwtAuthenticationController {
     private JwtTokenUtil jwtTokenUtil;
     private JwtUserDetailsService userDetailsService;
     private AppUserService appUserService;
+    private PasswordEncoder passwordEncoder;
 
     public JwtAuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,
-                                       JwtUserDetailsService userDetailsService, AppUserService appUserService) {
+                                       JwtUserDetailsService userDetailsService, AppUserService appUserService,
+                                       PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
         this.appUserService = appUserService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-
-    @PostMapping(value = "/auth/signin")
+    @PostMapping(value = "/auth/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         final String USERNAME = authenticationRequest.getUsername();
@@ -54,23 +56,9 @@ public class JwtAuthenticationController {
         return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername(), appUser));
     }
 
-
-
-    /* @PostMapping(value = "/auth/signup")
-     public ResponseEntity<?> saveUser(@RequestBody Utilisateur utilisateur) throws Exception {
-         return ResponseEntity.ok(utilisateurService.save(utilisateur));
-
-     }
-     */
-
-     /*@PostMapping(value = "/auth/signup")
-    public ResponseEntity<?> saveAppUser(@RequestBody AppUser appUser) throws Exception {
-        return ResponseEntity.ok(appUserService.saveAppUser(appUser));
-    }*/
-
     @PostMapping(value = "/auth/signup")
     public ResponseEntity<?> saveUser(@RequestBody AppUser appUser) throws Exception {
-        new BCryptPasswordEncoder().encode(appUser.getPassword());
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         return ResponseEntity.ok(appUserService.saveAppUser(appUser));
     }
 
@@ -83,6 +71,4 @@ public class JwtAuthenticationController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
-
 }
-

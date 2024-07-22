@@ -1,5 +1,6 @@
 package com.akwaresourceflow.services.Implementations;
 
+import com.akwaresourceflow.enums.VehicleStatus;
 import com.akwaresourceflow.models.Vehicle;
 import com.akwaresourceflow.repositories.VehicleRepo;
 import com.akwaresourceflow.services.Interfaces.VehicleService;
@@ -51,12 +52,13 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Vehicle updateVehicleStatus(Long id, String status) {
-        return vehicleRepo.findById(id).map(vehicle -> {
+    public Vehicle updateVehicleStatus(Long id, VehicleStatus status) {
+         return vehicleRepo.findById(id).map(vehicle -> {
             vehicle.setStatus(status);
             return vehicleRepo.save(vehicle);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehicle not found with id " + id));
     }
+
 
     @Override
     public Optional<Vehicle> getVehicleById(Long id) {

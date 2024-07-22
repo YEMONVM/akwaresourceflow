@@ -1,9 +1,11 @@
 package com.akwaresourceflow.controllers;
 
+import com.akwaresourceflow.models.AppUser;
 import com.akwaresourceflow.models.Restaurant;
 import com.akwaresourceflow.services.Interfaces.RestaurantService;
 import org.codehaus.plexus.resource.loader.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,6 +20,12 @@ public class RestaurantController {
 
     @Autowired
     private RestaurantService restaurantService;
+
+    @GetMapping
+    public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
+        return ResponseEntity.ok(restaurants);
+    }
 
     @PutMapping("/{id}")
     public Restaurant updateRestaurant(@PathVariable Long id, @RequestBody Restaurant restaurantDetails) throws ResourceNotFoundException {
