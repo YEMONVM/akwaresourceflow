@@ -1,11 +1,7 @@
 package com.akwaresourceflow.models;
 
 import com.akwaresourceflow.enums.TableStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -25,6 +21,11 @@ public class RestaurantTable {
     private int capacity;
     private TableStatus status;
 
+
     @OneToMany(mappedBy = "restaurantTable")
     private List<Bill> bills;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 }

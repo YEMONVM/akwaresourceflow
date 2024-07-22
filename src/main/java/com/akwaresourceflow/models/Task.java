@@ -4,6 +4,8 @@ import com.akwaresourceflow.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +22,6 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
-    @ManyToOne
-    @JoinColumn(name = "schedule_id")
-    private Schedule schedule;
+    @ManyToMany(mappedBy = "tasks")
+    private Set<Schedule> schedules;
 }
