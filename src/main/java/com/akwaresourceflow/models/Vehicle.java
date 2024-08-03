@@ -1,5 +1,6 @@
 package com.akwaresourceflow.models;
 
+import com.akwaresourceflow.enums.VehicleStatus;
 import com.akwaresourceflow.enums.VehicleType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,7 +24,7 @@ public class Vehicle {
     private String destination;
     private double latitude;
     private double longitude;
-    private String status; // Available, In Transit, Under Maintenance, etc.
+    private VehicleStatus status; // Available, In Transit, Under Maintenance, etc.
 
     @ManyToMany
     @JoinTable(
