@@ -18,13 +18,17 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private VehicleType type;
+
     private String currentLocation;
     private int capacity;
     private String destination;
     private double latitude;
     private double longitude;
-    private VehicleStatus status; // Available, In Transit, Under Maintenance, etc.
+
+    @Enumerated(EnumType.STRING)
+    private VehicleStatus status;
 
     @ManyToMany
     @JoinTable(
@@ -34,4 +38,9 @@ public class Vehicle {
     )
     private Set<DeliveryRoute> deliveryRoutes;
 
+    public void setLocation(Location location) {
+        this.latitude = Double.parseDouble(location.getLatitude());
+        this.longitude = Double.parseDouble(location.getLongitude());
+        this.currentLocation = location.toString(); // Assuming Location has a meaningful toString() method
+    }
 }
