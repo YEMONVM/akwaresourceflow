@@ -1,5 +1,6 @@
 package com.akwaresourceflow.controllers;
 
+import com.akwaresourceflow.dto.LocationDTO;
 import com.akwaresourceflow.services.Interfaces.RoutingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,13 +17,8 @@ public class RoutingController {
     @Autowired
     private RoutingService routingService;
 
-    @GetMapping("/optimize")
-    public String getOptimizedRoute(@RequestParam List<String> locations) {
-        return routingService.getOptimizedRoute(locations);
-    }
-
     @PostMapping("/optimize")
-    public ResponseEntity<String> optimizeRoute(@RequestBody List<String> locations) {
+    public ResponseEntity<String> optimizeRoute(@RequestBody List<LocationDTO> locations) {
         String optimizedRoute = routingService.getOptimizedRoute(locations);
         if (optimizedRoute != null) {
             return ResponseEntity.ok(optimizedRoute);
