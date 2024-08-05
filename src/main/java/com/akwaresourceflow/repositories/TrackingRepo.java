@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface TrackingRepo extends JpaRepository<Tracking, Long> {
-    List<Tracking> findByVehicleId(Long vehicleId);
+    List<Tracking> findByVehicleId(Long vehicleId); // Use Long for vehicleId
 }
