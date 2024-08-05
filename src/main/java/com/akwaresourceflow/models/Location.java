@@ -23,4 +23,19 @@ public class Location {
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Tracking> trackings;
+
+    // Convert latitude to double
+    public double getLatitudeAsDouble() {
+        return Double.parseDouble(latitude);
+    }
+
+    // Convert longitude to double
+    public double getLongitudeAsDouble() {
+        return Double.parseDouble(longitude);
+    }
+
+    @Override
+    public String toString() {
+        return "Lat: " + latitude + ", Lon: " + longitude;
+    }
 }
