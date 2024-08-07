@@ -2,6 +2,7 @@ package com.akwaresourceflow.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -18,6 +19,10 @@ public class Employee {
     private String firstname;
     private String lastname;
     private String position;
+    private String email; // Added
+    private String phone; // Added
+    @Temporal(TemporalType.DATE)
+    private Date hireDate; // Added
 
     @OneToMany
     private List<Schedule> schedules;

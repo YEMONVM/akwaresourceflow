@@ -38,6 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setFirstname(employeeDetails.getFirstname());
             employee.setLastname(employeeDetails.getLastname());
             employee.setPosition(employeeDetails.getPosition());
+            employee.setEmail(employeeDetails.getEmail()); // Updated
+            employee.setPhone(employeeDetails.getPhone()); // Updated
+            employee.setHireDate(employeeDetails.getHireDate()); // Updated
             employee.setSchedules(employeeDetails.getSchedules());
             return employeeRepo.save(employee);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id " + id));
