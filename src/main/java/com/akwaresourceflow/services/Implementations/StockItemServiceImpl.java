@@ -52,7 +52,6 @@ public class StockItemServiceImpl implements StockItemService {
             StockItem existingStockItem = stockItemOptional.get();
             existingStockItem.setName(stockItem.getName());
             existingStockItem.setQuantity(stockItem.getQuantity());
-            existingStockItem.setThreshold(stockItem.getThreshold());
             stockItemRepo.save(existingStockItem);
         } else {
             throw new RuntimeException("StockItem not found with id: " + idStockItem);
