@@ -22,6 +22,7 @@ public class Station {
     private String phonenumber;
 
 
+
     @OneToMany(mappedBy = "station", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<StockItem> stockItems;
 

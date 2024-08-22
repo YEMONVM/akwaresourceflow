@@ -1,10 +1,10 @@
 package com.akwaresourceflow.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -16,10 +16,28 @@ public class ProductSalesData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "product_name")
     private String productName;
-    private int totalQuantity;
+
+    @Column(name = "quantite_vendu")
+    private int QuantiteVendu;
+
+    @Column(name = "prix_achat")
+    private float PrixAchat;
+
+    @Column(name = "prix_vente")
+    private float prixVente;
+
+    @Column(name = "date_vente")
+    private LocalDate dateVente;
 
 
     public ProductSalesData(String key, Integer value) {
     }
+
+    @ManyToOne
+    @JoinColumn(name = "stock_item_id")
+    private StockItem stockItem;
+
+
 }

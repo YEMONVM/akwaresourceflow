@@ -2,7 +2,7 @@ package com.akwaresourceflow.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -17,7 +17,6 @@ public class StockItem {
     private Long id;
     private String name;
     private int quantity;
-    private int threshold;
     private String category;
 
     @ManyToMany(mappedBy = "stockItems")
@@ -26,4 +25,10 @@ public class StockItem {
     @ManyToOne
     @JoinColumn(name = "station_id")
     private Station station;
+
+    @OneToMany(mappedBy = "stockItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ProductSalesData> productSalesData;
+
+    @Column(name = "date_stock")
+    private LocalDate dateStock;
 }
