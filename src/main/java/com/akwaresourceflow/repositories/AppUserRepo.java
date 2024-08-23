@@ -7,13 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.List;
 
 @Repository
-public interface AppUserRepo extends JpaRepository<AppUser,Long> {
+public interface AppUserRepo extends JpaRepository<AppUser, Long> {
     AppUser findByUsername(String username);
-    ArrayList<AppUser> findByRole(Role role);
+    List<AppUser> findByRole(Role role);
 
     @Query("SELECT au FROM AppUser au JOIN au.employee e WHERE e.station.id = :stationId")
     List<AppUser> findByStationId(@Param("stationId") Long stationId);
