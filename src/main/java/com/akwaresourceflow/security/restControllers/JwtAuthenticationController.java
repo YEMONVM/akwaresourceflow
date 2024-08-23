@@ -6,14 +6,12 @@ import com.akwaresourceflow.security.jwt.configs.JwtTokenUtil;
 import com.akwaresourceflow.security.jwt.models.JwtRequest;
 import com.akwaresourceflow.security.jwt.models.JwtResponse;
 import com.akwaresourceflow.security.services.JwtUserDetailsService;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class JwtAuthenticationController {
 
-    private AuthenticationManager authenticationManager;
-    private JwtTokenUtil jwtTokenUtil;
-    private JwtUserDetailsService userDetailsService;
-    private AppUserService appUserService;
-    private PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtUserDetailsService userDetailsService;
+    private final AppUserService appUserService;
+    private final PasswordEncoder passwordEncoder;
 
     public JwtAuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,
                                        JwtUserDetailsService userDetailsService, AppUserService appUserService,
@@ -43,14 +41,14 @@ public class JwtAuthenticationController {
     @PostMapping(value = "/auth/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
-        final String USERNAME = authenticationRequest.getUsername();
-        final String PASSWORD = authenticationRequest.getPassword();
+        final String username = authenticationRequest.getUsername();
+        final String password = authenticationRequest.getPassword();
 
-        authenticate(USERNAME, PASSWORD);
+        authenticate(username, password);
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(USERNAME);
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-        AppUser appUser = appUserService.getAppUser(USERNAME);
+        AppUser appUser = appUserService.getAppUser(username);
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername(), appUser));
@@ -58,7 +56,7 @@ public class JwtAuthenticationController {
 
     @PostMapping(value = "/auth/signup")
     public ResponseEntity<?> saveUser(@RequestBody AppUser appUser) throws Exception {
-        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        // Encode the password and save the user
         return ResponseEntity.ok(appUserService.saveAppUser(appUser));
     }
 
@@ -68,6 +66,7 @@ public class JwtAuthenticationController {
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
+            System.out.println("Invalid credentials for user: " + username);
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }

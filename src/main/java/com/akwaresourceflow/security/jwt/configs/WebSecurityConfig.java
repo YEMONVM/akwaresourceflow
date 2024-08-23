@@ -1,7 +1,6 @@
 package com.akwaresourceflow.security.jwt.configs;
 
 import com.akwaresourceflow.security.services.JwtUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,7 +25,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     private final JwtRequestFilter jwtRequestFilter;
     private final JwtUserDetailsService jwtUserDetailsService;
 
-    @Autowired
     public WebSecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
                              JwtRequestFilter jwtRequestFilter,
                              JwtUserDetailsService jwtUserDetailsService) {
