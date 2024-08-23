@@ -8,10 +8,14 @@ import java.util.List;
 public interface AppUserService {
     List<AppUser> getAllAppUsers();
     AppUser getAppUser(String username);
+    AppUser getAppUserById(Long idAppUser);  // Add this method
     AppUser saveAppUser(AppUser appUser);
     void deleteAppUser(Long idAppUser);
-    void updateAppUser(Long idAppUser, AppUser appUser);
+    AppUser updateAppUser(Long idAppUser, AppUser appUser);
     int totalNumberAppUsers();
     List<AppUser> getAppUsersByRole(Role role);
     boolean userExists(String username);
+
+    List<AppUser> getAppUsersByStation(Long stationId);
+
 }

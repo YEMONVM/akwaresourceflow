@@ -1,5 +1,6 @@
 package com.akwaresourceflow.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,5 +25,6 @@ public class Bill {
 
     @ManyToOne
     @JoinColumn(name = "restaurant_table_id")
+    @JsonBackReference
     private RestaurantTable restaurantTable;
 }

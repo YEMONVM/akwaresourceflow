@@ -6,9 +6,10 @@ import com.akwaresourceflow.services.Interfaces.StationService;
 import lombok.extern.slf4j.Slf4j;
 import org.codehaus.plexus.resource.loader.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 @Service
 @Slf4j
@@ -17,13 +18,12 @@ public class StationServiceImpl implements StationService  {
     private StationRepo stationRepo;
 
     @Override
-    public List<Station> getAllStations() {
-        try {
-            return stationRepo.findAll();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to fetch all stations", e);
-        }
+    public Page<Station> getAllStations(Pageable pageable) {
+        Page<Station> stations = stationRepo.findAll(pageable);
+        log.debug("Fetched {} stations", stations.getTotalElements());
+        return stations;
     }
+
 
     @Override
     public Optional<Station> getStationById(Long id) {

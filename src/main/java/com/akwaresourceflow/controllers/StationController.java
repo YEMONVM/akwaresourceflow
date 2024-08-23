@@ -4,12 +4,14 @@ import com.akwaresourceflow.models.Station;
 import com.akwaresourceflow.services.Interfaces.StationService;
 import org.codehaus.plexus.resource.loader.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -18,11 +20,6 @@ public class StationController {
 
     @Autowired
     private StationService stationService;
-
-    @GetMapping
-    public List<Station> getAllStations() {
-        return stationService.getAllStations();
-    }
 
     @GetMapping("/{id}")
     public Station getStationById(@PathVariable Long id) {
@@ -44,5 +41,17 @@ public class StationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteStation(@PathVariable Long id) {
         stationService.deleteStation(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Station>> getAllStations(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        try {
+            Page<Station> stations = (Page<Station>) stationService.getAllStations(PageRequest.of(page, size));
+            return ResponseEntity.ok(stations);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

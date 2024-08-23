@@ -86,6 +86,9 @@ public class AppUser implements Serializable {
 
     private String address;
 
+    @OneToOne(mappedBy = "appuser")
+    private Employee employee;
+
     // Constructor for initializing a new user with necessary details
     public AppUser(String username, Role role, String password, String lastname, String firstname, String phone, String email, String address) {
         this.username = username;

@@ -9,7 +9,10 @@ import java.util.Optional;
 public interface EmployeeService {
     List<Employee> getAllEmployees();
     Optional<Employee> getEmployeeById(Long id);
+
     Employee saveEmployee(Employee employee);
+
+
     Employee updateEmployee(Long id, Employee employeeDetails) throws ResponseStatusException;
     void deleteEmployee(Long id);
 }

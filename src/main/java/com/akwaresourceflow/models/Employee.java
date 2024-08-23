@@ -30,4 +30,8 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "station_id")
     private Station station;
+
+    @OneToOne
+    @JoinColumn(name = "appuser_id")
+    private AppUser appuser;
 }

@@ -30,6 +30,7 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     private VehicleStatus status;
 
+
     @ManyToMany
     @JoinTable(
             name = "vehicle_delivery_route",
