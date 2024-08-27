@@ -37,7 +37,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/login", "/auth/signup", "/akwaresourceflow/**", "/api/**", "/**").permitAll()
+                        .requestMatchers("/auth/login", "/auth/signup").permitAll()
+                        .requestMatchers("/api/**", "/management/**", "/resourceflow/**").hasRole("ADMIN")
+                        .requestMatchers("/api/**", "/management").hasRole("STATIONMANAGER")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception

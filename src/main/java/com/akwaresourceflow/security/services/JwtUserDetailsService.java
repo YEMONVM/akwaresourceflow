@@ -24,15 +24,15 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepo.findByUsername(username);
 
         if (appUser == null) {
-            throw new UsernameNotFoundException("Admin not found with username: " + username);
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(String.valueOf(appUser.getRole())));
+        authorities.add(new SimpleGrantedAuthority(appUser.getRole().name())); // Correct role retrieval
 
         return new org.springframework.security.core.userdetails.User(appUser.getUsername(), appUser.getPassword(),
                 authorities);

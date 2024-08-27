@@ -47,16 +47,15 @@ public class JwtAuthenticationController {
         authenticate(username, password);
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-        AppUser appUser = appUserService.getAppUser(username);
+        final AppUser appUser = appUserService.getAppUser(username);
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername(), appUser));
+        return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername(), appUser.getRole().name(), appUser));
     }
 
     @PostMapping(value = "/auth/signup")
     public ResponseEntity<?> saveUser(@RequestBody AppUser appUser) throws Exception {
-        // Encode the password and save the user
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         return ResponseEntity.ok(appUserService.saveAppUser(appUser));
     }
 
@@ -66,7 +65,6 @@ public class JwtAuthenticationController {
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
-            System.out.println("Invalid credentials for user: " + username);
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
